@@ -1,0 +1,64 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Autour+One&family=Creepster&family=Dancing+Script:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+:root{
+    --color : rgba(223, 216, 216, 0.864);
+    --line-color : hsla(0, 0%, 50%, 0.453);
+}
+
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing : border-box;
+}
+body{
+    font-family: Roboto, Arial;
+    width : 100%;
+    background-color: #534d4d;
+    color : var(--color);
+    fill : var(--color)
+}
+main{
+    display : grid;
+    grid-template-columns: 20% 1fr;
+    min-height : 100vh;
+}
+.container{
+    border-right : 2px solid hsla(0, 0%, 50%, 0.453);
+}
+
+.heading{
+    margin-top: 1rem;
+    padding : 0.5rem 1.5rem;
+}
+.task > div, .projects > div{
+    display : flex;
+    gap : .5rem;
+    align-items : center;
+    padding : 0.5rem 1rem;
+    margin : 0 0.5rem;
+}
+.sub-task, .add-project-btn, .projects > div, .projects p, .projects svg {
+    cursor : pointer;
+    transition : scale 250ms ease-in;
+}
+.project-heading, .projects > div {
+    justify-content: space-between; 
+}
+
+.add-project-btn:active, .add-project-btn:hover, .sub-task:active, .sub-task:hover, .projects svg:active, .projects p:active, .projects p:hover, .projects svg:hover{
+    scale : 1.15;
+}
+.projects > div{
+    color : #eee3e3;
+    margin : 1rem 0;
+}
+
+.projects > div:hover{
+    background-color : #dedfe11c;
+}
+
+hr{
+    border : 1px solid var(--line-color);
+    width : 100%;
+}
+
