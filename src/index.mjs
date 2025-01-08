@@ -1,6 +1,6 @@
 import "./styles.css";
-import { addProjectName, projectDiv, svg } from "./dom.mjs";
-import { todo, addProject , projectArray } from "./functionality.mjs";
+import { addProjectName, projectDiv, createElements, todoWrapper, renderTodos, createProjectHeading} from "./dom.mjs";
+import { todo, addProject, getIndex } from "./functionality.mjs";
 
 
 const taskBtn = document.querySelector(".taskbtn");
@@ -11,8 +11,10 @@ const smallFormCancel = document.querySelector(".exit")
 const addTask = document.querySelector(".add-task");
 const bigmodal = document.querySelector(".bigmodal");
 const bigForm = document.querySelector(".big-form");
+const heading = document.querySelector(".wrapper-heading")
 
-let allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
+
+export let allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
 localStorage.setItem("Tasks", JSON.stringify(allTask));
 
 let selectedProject = null;
@@ -51,13 +53,20 @@ smallFormSubmit.addEventListener("submit", (e)=>{
         addTask.style.display = "none";
         allTask = allTask.filter((task)=>task.project !== projectName)
         localStorage.setItem("Tasks", JSON.stringify(allTask));
+        todoWrapper.replaceChildren();
+        heading.textContent = "";
     })
 
     //functionality of the div in the small form elements
     smallFormElements.projectPara.addEventListener("click", ()=>{
+        todoWrapper.replaceChildren()
         addTask.style.display = "block";
         selectedProject = projectName;
-        console.log(selectedProject)
+        heading.textContent = selectedProject;
+        const projectIndex = getIndex(selectedProject);
+        allTask[projectIndex].task.forEach((task, taskIndex)=>{
+            renderTodos(projectIndex, task, taskIndex)
+        })
         
     })
 
@@ -77,9 +86,14 @@ bigForm.addEventListener("submit", (e)=>{
     const description = document.querySelector("#description").value;
 
     
-    const projectIndex = allTask.findIndex(task => task.project === selectedProject)
-    allTask[projectIndex].task.push(new todo(title, date, priority, description));
+    const projectIndex = getIndex(selectedProject);
 
+    allTask[projectIndex].task.push(new todo(title, date, priority, description));
+    todoWrapper.replaceChildren()
+    heading.textContent = selectedProject
+    allTask[projectIndex].task.forEach((task, taskIndex) => {
+        renderTodos(projectIndex, task, taskIndex)
+    })
     localStorage.setItem("Tasks", JSON.stringify(allTask));
 
 
@@ -95,18 +109,39 @@ window.addEventListener("DOMContentLoaded", () => {
     for (let task of allTask) {
         const smallFormElements = addProjectName(task.project);
 
-        // Add event listeners for delete and click functionality
         smallFormElements.svg.addEventListener("click", () => {
             projectDiv.removeChild(smallFormElements.div);
             addTask.style.display = "none";
             allTask = allTask.filter((t) => t.project !== task.project);
             localStorage.setItem("Tasks", JSON.stringify(allTask));
+            todoWrapper.replaceChildren()
+            heading.textContent = ""
         });
 
         smallFormElements.projectPara.addEventListener("click", () => {
             addTask.style.display = "block";
             selectedProject = task.project;
-            console.log(selectedProject);
+            todoWrapper.replaceChildren();
+            heading.textContent = selectedProject;
+            const projectIndex = getIndex(selectedProject);
+            allTask[projectIndex].task.forEach((task, taskIndex)=>{
+            renderTodos(projectIndex, task, taskIndex)
+        })
         });
     }
 });
+
+taskBtn.addEventListener("click", () => {
+    allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
+    todoWrapper.replaceChildren()
+    heading.textContent = "Tasks";
+    allTask.forEach((project, projectIndex) => {
+        if(project.task.length !== 0){
+            createProjectHeading(project.project);
+        }
+        project.task.forEach((task, taskIndex) =>{
+            renderTodos(projectIndex, task, taskIndex) 
+        })
+    })
+})
+
