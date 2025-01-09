@@ -1,17 +1,20 @@
 import "./styles.css";
-import { addProjectName, projectDiv, createElements, todoWrapper, renderTodos, createProjectHeading} from "./dom.mjs";
+import { addProjectName, projectDiv, createElements, todoWrapper, renderTodos, createProjectHeading } from "./dom.mjs";
 import { todo, addProject, getIndex } from "./functionality.mjs";
 
 
-const taskBtn = document.querySelector(".taskbtn");
+export const taskBtn = document.querySelector(".taskbtn");
 const projectBtn = document.querySelector(".add-project-btn");
 const modal = document.querySelector(".modal");
 const smallFormSubmit = document.querySelector(".smallForm");
 const smallFormCancel = document.querySelector(".exit")
-const addTask = document.querySelector(".add-task");
+export const addTask = document.querySelector(".add-task");
 const bigmodal = document.querySelector(".bigmodal");
 const bigForm = document.querySelector(".big-form");
 const heading = document.querySelector(".wrapper-heading")
+export const completeBtn = document.querySelector('.completeBtn');
+export const todayBtn = document.querySelector(".todayBtn");
+export const plannedBtn = document.querySelector(".planned")
 
 
 export let allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
@@ -28,7 +31,6 @@ addTask.addEventListener("click", () =>{
 })
 
 smallFormSubmit.addEventListener("submit", (e)=>{
-    // functionality for mini form to add project
     e.preventDefault();
     const projectName = document.querySelector("#project-name").value;
 
@@ -133,7 +135,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 taskBtn.addEventListener("click", () => {
     allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
-    todoWrapper.replaceChildren()
+    todoWrapper.replaceChildren();
+    addTask.style.display = "none";
     heading.textContent = "Tasks";
     allTask.forEach((project, projectIndex) => {
         if(project.task.length !== 0){
@@ -145,3 +148,59 @@ taskBtn.addEventListener("click", () => {
     })
 })
 
+completeBtn.addEventListener("click", () => {
+    allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
+    todoWrapper.replaceChildren();
+    addTask.style.display = "none";
+    heading.textContent = "Completed";
+    allTask.forEach((project, projectIndex)=>{
+        if(project.task.some(p => p.complete === true)){
+            createProjectHeading(project.project);
+        }
+        project.task.forEach((task, taskIndex) =>{
+            if(task.complete === true){
+                renderTodos(projectIndex, task, taskIndex) 
+                console.log(task.date);
+            }}
+        )
+    })
+})
+
+const dateToday = new Date().toISOString().slice(0, 10);
+
+
+todayBtn.addEventListener("click", () =>{
+    allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
+    todoWrapper.replaceChildren();
+    addTask.style.display = "none";
+    heading.textContent = "Today";
+    allTask.forEach((project, projectIndex)=>{
+        if(project.task.some(p => p.date == dateToday)){
+            createProjectHeading(project.project);
+        }
+        project.task.forEach((task, taskIndex) =>{
+            if(task.date == dateToday){
+                renderTodos(projectIndex, task, taskIndex) 
+            }}
+        )
+    })
+})
+
+plannedBtn.addEventListener("click", () => {
+    allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
+    todoWrapper.replaceChildren();
+    addTask.style.display = "none";
+    heading.textContent = "Planned";
+    allTask.forEach((project, projectIndex)=>{
+        if(project.task.some(p => p.date >= dateToday)){
+            createProjectHeading(project.project);
+        }
+        project.task.forEach((task, taskIndex) =>{
+            if(task.date >= dateToday){
+                renderTodos(projectIndex, task, taskIndex) 
+            }}
+        )
+    })
+})
+
+taskBtn.click()
