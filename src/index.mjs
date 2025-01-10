@@ -14,7 +14,8 @@ const bigForm = document.querySelector(".big-form");
 const heading = document.querySelector(".wrapper-heading")
 export const completeBtn = document.querySelector('.completeBtn');
 export const todayBtn = document.querySelector(".todayBtn");
-export const plannedBtn = document.querySelector(".planned")
+export const plannedBtn = document.querySelector(".planned");
+const cancel = document.querySelector('.cancel');
 
 
 export let allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
@@ -98,12 +99,12 @@ bigForm.addEventListener("submit", (e)=>{
     })
     localStorage.setItem("Tasks", JSON.stringify(allTask));
 
-
-    console.log(allTask)
-
     bigmodal.close()
 })
 
+ cancel.addEventListener('click', () =>{
+    bigmodal.close()
+ })
 
 window.addEventListener("DOMContentLoaded", () => {
     allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
@@ -192,11 +193,11 @@ plannedBtn.addEventListener("click", () => {
     addTask.style.display = "none";
     heading.textContent = "Planned";
     allTask.forEach((project, projectIndex)=>{
-        if(project.task.some(p => p.date >= dateToday)){
+        if(project.task.some(p => (p.date >= dateToday) && (p.complete === false))){
             createProjectHeading(project.project);
         }
         project.task.forEach((task, taskIndex) =>{
-            if(task.date >= dateToday){
+            if(task.date >= dateToday && task.complete === false){
                 renderTodos(projectIndex, task, taskIndex) 
             }}
         )
