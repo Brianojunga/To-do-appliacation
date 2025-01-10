@@ -95,7 +95,7 @@ hr{
     margin : 0.5rem;
 }
 
-.low{
+.low, #low{
     background-color : #f9f871;
 }
 
@@ -104,10 +104,10 @@ hr{
     font-weight : bold;
     padding : 0 0.5rem
 }
-.medium{
+.medium, #medium{
     background-color : #ff7083;
 }
-.high{
+.high, #high{
     background-color: #00e6e5;
 }
 
@@ -219,4 +219,115 @@ h3{
     border-radius: 5px;
     background-color : var(--background-color);
     border : 2px solid var(--color)
+}
+.bigmodal, .modal{
+    position : fixed;
+    top : 20%;
+    padding : 1rem;
+    width : min(80%, 30rem);
+    margin : 0 auto;
+    background-color: #bc8850;
+    box-shadow : 8px 8px 8px 5px hsla(0, 0%, 100%, 0.189);
+    border-radius: 8px;
+    border : none;
+}
+
+.big-form{
+   width : 100%;
+}
+
+.big-form > div{
+    display : grid;
+    margin : 0.5rem;
+    color : var(--background-color);
+}
+
+input, textarea{
+    outline : none;
+    border : none;
+    background-color: transparent;
+    font-size : 1rem;
+    text-align : center;
+    font-weight : bold;
+    color : var(--background-color);
+    box-shadow: 0 0 8px #1a1919ae;
+    border-radius: 8px;
+}
+input{
+    height : 30px;
+}
+input:active{
+    outline : none;
+    border : none;
+}
+label{
+    font-weight : bold;
+    margin : 2px;
+    font-family: Agbalumo;
+}
+input::placeholder{
+    margin : 1rem;
+}
+.big-form > div:nth-child(3){
+    display : flex;
+    justify-content : space-between;
+    padding : 0 1rem;
+}
+.big-form > div:nth-child(3) > div, .big-form > div:nth-child(5){
+    display : flex;
+    align-items : center;
+}
+
+.big-form > div:nth-child(5){
+    justify-content: center;
+    gap : 2rem;
+}
+
+.big-form button, .smallForm button{
+    background-color: var(--background-color);
+    color : white;
+    border : none;
+    cursor : pointer;
+    border-radius : 5px;
+    padding : 0.5rem 1rem;
+}
+
+.big-form button[type="submit"] {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.big-form:valid button[type="submit"] {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+input[type="radio"]{
+    box-shadow: none;
+    accent-color: var(--background-color);
+    width : 1rem;
+    margin : 0 4px;
+}
+
+#medium, #low, #high{
+    padding : 0 0.5rem;
+}
+
+.smallForm input{
+    width : 100%;
+    margin : 0.5rem 0 1rem 0;
+}
+
+.smallForm div{
+    display : flex;
+    justify-content: center;
+    gap : 2rem;
+}
+
+.modal{
+    top : 40%;
+}
+
+.bigScreen-menu{
+    display : none;
 }

@@ -36,6 +36,7 @@
             <div class="projects">
                 <dialog class="modal">
                     <form class="smallForm">
+                        <label for="project-name">Project Name : </label>
                         <input type="text" name="projectName" id="project-name" placeholder="project name">
                         <div>
                             <button type="submit" class="submitbtn">Submit</button>
@@ -64,25 +65,26 @@
                         <div class="radio-buttons">
                             <div>
                                 <input type="radio" name="priority" id="low" value="low" required>
-                                <label for="low">Low</label>
+                                <label for="low" id="low">Low</label>
                             </div>
                             <div>
                                 <input type="radio" name="priority" id="medium" value="medium" required>
-                                <label for="medium">Medium</label>
+                                <label for="medium" id="medium">Medium</label>
                             </div>
                             <div>
                                 <input type="radio" name="priority" id="high" value="high" required>
-                                <label for="high">High</label>
-                            </div>
-                            <div>
-                                <label for="description">Description: </label>
-                                <textarea name="description" id="description" cols="30" rows="10"></textarea>
-                            </div>
-                            <div>
-                                <button type="submit">Submit</button>
-                                <button type="button" class="cancel">Cancel</button>
+                                <label for="high" id="high">High</label>
                             </div>
                         </div>
+                        <div>
+                            <label for="description">Description: </label>
+                            <textarea name="description" id="description" cols="30" rows="5"></textarea>
+                        </div>
+                        <div class="buttons">
+                            <button type="submit">Submit</button>
+                            <button type="button" class="cancel">Cancel</button>
+                        </div>
+                       
                     </form>
                 </dialog>
 
