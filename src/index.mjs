@@ -2,7 +2,6 @@ import "./styles.css";
 import {
   addProjectName,
   projectDiv,
-  createElements,
   todoWrapper,
   renderTodos,
   createProjectHeading,
