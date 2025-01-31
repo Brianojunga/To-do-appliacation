@@ -30,6 +30,9 @@ main {
   margin-top: 1rem;
   padding: 0.5rem 1.5rem;
 }
+.close{
+  display : none;
+}
 .task > div,
 .projects > div {
   display: flex;
@@ -82,6 +85,9 @@ hr {
 .wrapper {
   padding: 1rem;
   position: relative;
+}
+.menu{
+  display : none;
 }
 
 .svg-wrapper {
@@ -230,24 +236,26 @@ h3 {
 }
 ::-webkit-scrollbar-track {
   border-radius: 3px;
-  background-color: transparent;
+  background-color: var(--background-color)
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: var(--background-color);
-  border: 2px solid var(--color);
+  background-color: var(--color);
 }
 .bigmodal,
 .modal {
   position: fixed;
-  top: 20%;
+  top: 50%;
+  transform : translateY(-50%);
   padding: 1rem;
   width: min(80%, 30rem);
-  margin: 0 auto;
-  background-color: #bc8850;
-  box-shadow: 8px 8px 8px 5px hsla(0, 0%, 100%, 0.189);
+  margin : 0 auto;
+  /* background-color: #bc8850b9; */
+  background-color: #ffffff59;
+  box-shadow: 5px 5px 5px hsla(0, 0%, 100%, 0.189);
   border-radius: 8px;
   border: none;
+  backdrop-filter: blur(10px);
 }
 
 .big-form {
@@ -353,4 +361,58 @@ input[type="radio"] {
 
 .bigScreen-menu {
   display: none;
+}
+
+@media (max-width : 600px){
+  main{
+    grid-template-columns: 1fr;
+  }
+  .container{
+    position : fixed;
+    width : 40rem;
+    backdrop-filter: blur(20px);
+    top : 0; 
+    width : 250px;
+    height : 100vh;
+    z-index : 2;
+    display : none;
+    animation : slide-in 1000ms ease-out;
+  }
+  .menu, .close{
+    display : block;
+    position : absolute;
+    top : 15px;
+    background : transparent;
+    border : none;
+  }
+  .close{
+    right : -36px;
+    top : 24px;
+  }
+  .showing{
+    animation : slide-out 1000ms ease-out forwards;
+  }
+  .close-svg{
+    width : 24px;
+  }
+
+  @keyframes slide-in{
+    from{
+      transform : translateX(-250px);
+      display : none;
+    }to{
+      transform: translateX(0px);
+      display: block;
+    }
+  }
+
+  @keyframes slide-out {
+    from{
+      transform: translateX(0px);
+      display : block;
+    }to{
+      transform : translateX(-250px);
+      display : none;
+    }
+  }
 }

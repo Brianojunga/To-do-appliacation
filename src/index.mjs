@@ -21,6 +21,9 @@ export const completeBtn = document.querySelector(".completeBtn");
 export const todayBtn = document.querySelector(".todayBtn");
 export const plannedBtn = document.querySelector(".planned");
 const cancel = document.querySelector(".cancel");
+const menu = document.querySelector('.menu');
+const menuContainer = document.querySelector('.container');
+
 
 export let allTask = JSON.parse(localStorage.getItem("Tasks")) || [];
 localStorage.setItem("Tasks", JSON.stringify(allTask));
@@ -206,5 +209,19 @@ plannedBtn.addEventListener("click", () => {
     });
   });
 });
+
+menu.addEventListener('click', ()=>{
+  menuContainer.style.display = "block";
+  document.querySelector('.close').style.display = 'block'
+})
+  
+document.querySelector('.close').addEventListener('click', ()=>{
+  menuContainer.classList.add('showing');
+  document.querySelector('.close').style.display = 'none';
+  setTimeout(() => {
+    menuContainer.style.display = 'none'; 
+    menuContainer.classList.remove('showing'); 
+  }, 1000);
+})
 
 taskBtn.click();
